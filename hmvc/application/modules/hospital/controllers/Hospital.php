@@ -16,11 +16,11 @@ class Hospital extends MX_Controller {
 
 
 
-    function index(){
+    // function index(){
   
-        $this->load->view('hospitalview');
+    //     $this->load->view('hospitalview');
         
-    }
+    // }
     function output(){
         $this->load->view('output');
     }
@@ -28,9 +28,9 @@ class Hospital extends MX_Controller {
         $this->load->view('billoutput');
     }
     function preview(){
-        $idd =  $this->input->post('id');
-        $data =  $this->hospital_model->getAllData($idd);
-        $this->load->view('preview',$data);
+       // $idd =  $this->input->post('id');
+       //$data =  $this->hospital_model->getAllData($idd);
+        $this->load->view('preview');
     }
     function billing(){
         
@@ -46,12 +46,12 @@ class Hospital extends MX_Controller {
 
     }
 
-    function allData(){
+    // function allData(){
         
-        $idd = $this->input->post('pid');
-        $data =  $this->hospital_model->getAllData($idd);
+    //     $idd = $this->input->post('pid');
+    //     $data =  $this->hospital_model->getAllData($idd);
           
-    }
+    // }
      function allDatas(){
 
         $idd =  $this->input->post('id');
@@ -66,14 +66,15 @@ class Hospital extends MX_Controller {
         
         
         $idd =  $this->input->post('patientid');
-        $data =  $this->hospital_model->getAllBillingData($idd);
-      
+        $data =  $this->hospital_model->getAllData($idd);
+     
          echo json_encode($data);
+       //  var_dump($data);
 
     }
     function billing_item(){
 
-        $data['data'] =  $this->hospital_model->getAllBilling();
+        $data =  $this->hospital_model->getAllBilling();
          echo json_encode($data);
   
     }
@@ -104,7 +105,7 @@ echo json_encode($select);
 }
 
 
-function insert(){
+function index(){
          //  $this->form_validation->load('form_validation');
          $this->form_validation->set_rules('patientname',"patientname",'required');
          $this->form_validation->set_rules('phoneNumber',"phoneNumber",'required');
@@ -114,10 +115,11 @@ function insert(){
          $this->form_validation->set_rules('gender',"gender",'required');
          if($this->form_validation->run() == false){
  
-         $this->load->view('hospitalview');}
+         $this->load->view('hospitalview');
+        }
          else{
     
-    $patientid = $this->input->post('patientid');
+    $patientid = rand(2000,1000);
     $patientname = $this->input->post('patientname');
     $phoneNumber = $this->input->post('phoneNumber');
     $address = $this->input->post('address');
@@ -125,25 +127,30 @@ function insert(){
     $country = $this->input->post('country');
     $province = $this->input->post('province');
     $municipality = $this->input->post('municipality');
-    $gender = $this->input->post('gender');
     $language = $this->input->post('language');
-   $date = $this->input->post('date');
+    $gender = $this->input->post('gender');
+    $date= date('Y-m-d H:i:s');
      
     $alldata = $this->hospital_model->insertData($patientid,$patientname,$phoneNumber,$address, $age, $country, $province, $municipality, $gender, $language,$date);
-
+    $this->load->view('hospitalview',$alldata);
+  
     if ($alldata){
         $status='success';
     }else{
         $status='Failed';
     }
-echo json_encode(
+
+ echo json_encode(
     array(
        'status'=> $status
     )
 );
-     
+
+
+}   
+
          }
-    }
+          
 
 
 function addtotal(){
@@ -159,13 +166,12 @@ function addtotal(){
     }else{
         $status='Failed';
     }
-    
-    echo json_encode(
+   
+echo json_encode(
         array(
            'status'=>$status
         )
     );
-    
 
 
 
@@ -211,8 +217,8 @@ echo json_encode(
 
  
 }
-
-  
 }
+  
+
 
 ?>

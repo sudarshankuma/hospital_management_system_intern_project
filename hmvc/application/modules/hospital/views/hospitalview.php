@@ -1,4 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
 <!DOCTYPE html>
 <html lang="em">
@@ -7,7 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo base_url();?>css/style.css">
-        <link rel="stylesheet" href="<?php echo base_url();?>jquery/style.js">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       
         <title>Registration form</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
         
     
     <div id="message"></div>
-    <form action="<?php echo base_url('hospital/insert')?>" method='POST' >
+    <form id ="contact" action="<?php echo base_url('hospital/index')?>" method='POST' >
     <h2>Basic information</h2>
     <br>
     <div class="user-details">
@@ -72,7 +73,7 @@
 
 </label>Country:</label>
 <select id="country" name="country">
-    <option value=" "></option>
+    <option ></option>
   
 </select>
 
@@ -80,7 +81,7 @@
 <br>
 </label>Province:</label>
 <select id="province" name="province">
-<option value=" "></option>
+<option ></option>
 
 </select>
 
@@ -88,7 +89,7 @@
 <br>
 </label>Municipality:</label>
 <select id="muni" name="municipality">
-<option value=" "></option>
+<option></option>
 </select>
 
 <br>
@@ -102,6 +103,7 @@
 </form>
 
 </body>
+<!-- <script type="text/javascript" src="js/q.js"></script> -->
 
 
 
@@ -116,14 +118,8 @@
 
 <script>
     
-    // calling function
-getprovince();
-getmunicipality();
-
-//fetch all country name
 var url = "<?php echo base_url()."Hospital/fetch"?>";
-
-    $.get({
+$.get({
 url,
 success:function(data){
     data = JSON.parse(data);
@@ -141,6 +137,15 @@ success:function(data){
     }
   
 });
+
+    
+    
+    // calling function
+getprovince();
+getmunicipality();
+
+//fetch all country name
+
 
 //function to get province
     function getprovince(){
@@ -213,10 +218,9 @@ $("#province").click(function(){
 
 
 
-$(document).ready(function(){
-    var patientid = 1;
 
 
+var url = "<?php echo base_url()."hospital/index" ?>";
 
 $('#submit').click(function(){
     var gender =[];
@@ -244,16 +248,18 @@ var age = $('#age').val();
 var country = $('#country').find(":selected").text();
 var province = $('#province').find(":selected").text();
 var municipality = $("#muni").find(":selected").text();
-var date = new Date();
- var patientid = Math.floor(Math.random() * 10);
+//var patientid= rand(999999,111111);
+//var date = new Date();
+//var patientid = rand(999999,111111);
+//  var patientid = Math.floor(Math.random() * 10);
 // localStorage.setItem('patientid',patientid);
 
 
 
-var url = "<?php echo base_url()."hospital/insert" ?>";
+
 $.post(url, {
 
-   patientid,
+  // patientid,
     patientname,
     phoneNumber,
     address,
@@ -262,28 +268,31 @@ $.post(url, {
     province,
     municipality,
     gender,
-    language,
-    date
+    language
+   // date
    
 },
   function(checkdata){
      checkdata=JSON.parse(checkdata);
    if (checkdata.status == "success") {
-                alert(" Data save");
-            } else {
-                alert("failed");
-            }
+               $("#contact").hide(checkdata);
+            } 
+            $("#message").html(checkdata);
+           // location.reload();
+           
+        
+ });
 
- }
- 
 
-
-
-);
-});
 });
 
 
+
+ //$(document).ready(function(){
+   // var patientid = rand(999999,111111);
+
+
+ //});
 
 
 
@@ -296,3 +305,6 @@ $.post(url, {
 
 
 </script> 
+<!-- <script>
+  
+    </script>4e -->

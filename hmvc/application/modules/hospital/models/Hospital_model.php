@@ -55,9 +55,9 @@ $data = $this->db->select('*')
                         
                          }
                          function getAllData($patientid){
-                            $this->db->select( ' billing_item.patientid,,test_item,qty,price,total,dpercent,damount,dpercent,nettotal');
-                            $this->db->distinct();
-                            $this->db->join('test_item', 'billing_item.patientid=test_item.patientid');
+                            $this->db->select( ' billing_item.samp_no,test_item,qty,price,total,dpercent,id,damount,dpercent,nettotal');
+                            $this->db->DISTINCT();
+                            $this->db->join('test_item', 'billing_item.samp_no=test_item.samp_no');
                       
                             $data = $this->db->get_where('billing_item',array('billing_item.patientid'=>$patientid));
                             return $data->result_array();
@@ -66,15 +66,15 @@ $data = $this->db->select('*')
                     
                         }
                       
-                        function  getAllBillingData($id){
-                            $this->db->select( ' billing_item.patientid,test_item,qty,price,total,dpercent,damount,dpercent,nettotal');
-                            $this->db->distinct();
-                            $this->db->join('test_item', 'billing_item.patientid=test_item.patientid');
+                        // function  getAllBillingData($id){
+                        //     $this->db->select( ' billing_item.patientid,test_item,qty,price,total,dpercent,damount,dpercent,nettotal');
+                        //     $this->db->distinct();
+                        //     $this->db->join('test_item', 'billing_item.patientid=test_item.patientid');
                       
-                            $data = $this->db->get_where('billing_item',array('billing_item.patientid'=>$id));
-                            return $data->result_array();
+                        //     $data = $this->db->get_where('billing_item',array('billing_item.patientid'=>$id));
+                        //     return $data->result_array();
                         
-                        }
+                        // }
 
     
 
@@ -84,11 +84,8 @@ $data = $this->db->select('*')
 
     function insertData($patientid,$patientname,$phoneNumber,$address, $age, $country, $province, $municipality, $gender, $language,$date){
   
-       
-  
-
-        $alldata = $this->db->set('patientid',$patientid)
-                    ->set('patientname',$patientname)
+      $alldata =$this->db->set('patientid',$patientid)
+                        ->set('patientname',$patientname)
                       ->set('phoneNumber',$phoneNumber)
                       ->set('address',$address)
                        ->set('age',$age)
@@ -96,17 +93,19 @@ $data = $this->db->select('*')
                       ->set('province',$province)
                       ->set('municipality',$municipality)
                       ->set('gender',$gender)
-                      ->set('date',$date)
                     ->set('language',$language)
+                    ->set('date',$date)
                       -> insert('datas');
 
 
 
-          if ($alldata){
+          if($alldata){
 
-            $status='success';
-        }else{
-            $status='Failed';
+        return true;
+        }
+        else
+        {
+           return false;
         }
     
         

@@ -1,7 +1,8 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <h2>Billing </h2>
 <h4>patientid</h4>
+
 <div id="patientid"></div>
 <hr>
 
@@ -14,7 +15,7 @@
         <td><input type="text" placeholder="Discount%" id="percent"/></td>
 
         
-        <td><input type="button" value="Add" id="add"/> || <input type="button" value="Clear"/></td>   
+        <td><input type="button" value="Add" id="add"/> || <input type="button" value="view" id="add"/> </td>   
         </div>
 
 </form>
@@ -22,7 +23,8 @@
     <thead >
  <tr id="header" style="border:1px solid black;" >
     </td>
-  
+  <td> S.N</td>
+  <td>patientid</td>
         <td>Test items</td>
        <td>Unitprice</td>
        <td>Qty</td>
@@ -74,7 +76,10 @@
 
 </style>
 
+
 <script>
+   
+
 
     $(document).ready(function(){
        
@@ -91,7 +96,7 @@
          var nettotal = total-amount;
        var date = new Date();
     
-var url='<?php echo base_url()."Hospital/finaloutput"?>'
+var url='<?php echo base_url()."hospital/finaloutput"?>'
         $.post(url,{
  patientid,
 item,
@@ -137,14 +142,16 @@ date
           console.log(data);
                 var html = '';
                 for(var i=0; i<data.length;i++){
-                    html += '<tr>'+'<td class ="stud_id">'+data[i].test_item+'</td>'+
+                    html += '<tr>'+'<td>'+data[i].id+'</td>'+
+                    '<td>'+localStorage.getItem('rid')+'</td>'+
+                    '<td class ="stud_id">'+data[i].test_item+'</td>'+
     '<td >'+data[i].price+'</td>'+
     
     '<td >'+data[i].qty+'</td>'+
     '<td >'+data[i].total+'</td>'+
     '<td >'+data[i].dpercent+'</td>'+
     '<td >'+data[i].damount+'</td>'+
-    +data[i].patientid+
+
     '<td >'+data[i].nettotal+'</td>'+
       '</tr>' ;
                                   

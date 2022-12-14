@@ -3,7 +3,10 @@
 <table>
 <thead>
     <tr>
+      <td>S.N</td>
+      <td>patientId</td>
         <td>Test Name</td>
+       
         <td>price</td>
         <td>Qty</td>
         <td>Total price</td>
@@ -16,6 +19,8 @@
 </tr>
 
 </thead>
+
+
 <tbody id="datas">
 
 </tbody>
@@ -48,6 +53,7 @@
 
 <script>
    var id = localStorage.getItem('id');
+   console.log(id);
    $(document).ready(function(){
 
   
@@ -65,7 +71,11 @@
             
 var html = '';
 for(i=0; i<data.length;i++){
-    html += '<tr>'+'<td class="stud_id" >'+data[i].test_item+'</td>'+
+ 
+    html += '<tr>'+    '<td >'+data[i].id+'</td>'+
+    '<td>'+localStorage.getItem('rid')+'</td>'+
+    
+    '<td class="stud_id" >'+data[i].test_item+'</td>'+
     '<td >'+data[i].price+'</td>'+
     '<td >'+data[i].qty+'</td>'+
     '<td >'+data[i].total+'</td>'+
@@ -78,11 +88,15 @@ for(i=0; i<data.length;i++){
 
  
     '</tr>'
+
 }
 $("#datas").html(html);
+            
 
+            
 
 }
+
             
         });
     });
